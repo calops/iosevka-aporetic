@@ -23,8 +23,9 @@ mkDerivation {
   doBuild = false;
 
   installPhase = ''
-    dest=$out/share/fonts/truetype/aporetic-sans
-    mkdir -p $dest
-    cp -r ./TTF/* $dest
+    dest=$out/share/fonts
+    mkdir -p $dest/{truetype,woff2}
+    cp -r ./TTF/* $dest/truetype
+    cp -r ./WOFF2/* $dest/woff2
   '';
 }
