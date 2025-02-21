@@ -3,15 +3,10 @@ set -eux
 
 export NIX_CONFIG="allow-import-from-derivation = true"
 
-nix build .#aporetic-sans.base -L
+nix build .#aporetic-sans -L
 
 DIST="$(realpath "${1:-$PWD/dist}")"
 mkdir -p "$DIST"
-
-# no need for ttf-only package
-# pushd ./result/TTF
-# zip -9 -r "$DIST/iosevka-ttf.zip" ./.
-# popd
 
 pushd ./result
 zip -9 -r "$DIST/aporetic-sans.zip" ./.

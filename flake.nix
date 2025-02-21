@@ -23,21 +23,12 @@
         { pkgs, ... }:
         {
           packages = rec {
-            aporetic-sans = rec {
-              base = pkgs.callPackage ./base.nix {
-                pname = "aporetic-sans";
-                upstream = iosevka-upstream;
-              };
-
-              # ready for linux use, though IFD
-              default = pkgs.runCommand "aporetic-sans-ttf" { } ''
-                dest=$out/share/fonts/truetype
-                mkdir -p $dest
-                cp -avL ${base}/TTF/*.ttf $dest
-              '';
+            aporetic-sans = pkgs.callPackage ./base.nix {
+              pname = "aporetic-sans";
+              upstream = iosevka-upstream;
             };
 
-            default = aporetic-sans.base;
+            default = aporetic-sans;
           };
         };
     };
