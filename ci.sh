@@ -1,8 +1,6 @@
 #! /usr/bin/env bash
 set -eux
 
-export NIX_CONFIG="allow-import-from-derivation = true"
-
 nix build .#aporetic-sans -L
 
 DIST="$(realpath "${1:-$PWD/dist}")"

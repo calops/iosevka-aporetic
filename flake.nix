@@ -28,6 +28,12 @@
               upstream = iosevka-upstream;
             };
 
+            aporetic-sans-prebuilt = pkgs.callPackage ./prebuilt.nix {
+              pname = "aporetic-sans-prebuilt";
+              version = aporetic-sans.version;
+              mkDerivation = pkgs.stdenv.mkDerivation;
+            };
+
             default = aporetic-sans;
           };
         };
