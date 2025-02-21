@@ -7,10 +7,10 @@
 }:
 mkDerivation {
   inherit pname version;
-  name = pname;
+  name = "${pname}-prebuilt-v${version}";
 
   src = fetchurl {
-    url = "https://github.com/calops/iosevka-aporetic/releases/download/v${version}/aporetic-sans.zip";
+    url = "https://github.com/calops/iosevka-aporetic/releases/download/v${version}/${pname}.zip";
     hash = "sha256-y0Cfc8yUrOYTXRJttJhIh/CA9wPx9FK/QjT5YYuPd+k=";
   };
 

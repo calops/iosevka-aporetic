@@ -20,22 +20,45 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import systems;
       perSystem =
-        { pkgs, ... }:
-        {
-          packages = rec {
-            aporetic-sans = pkgs.callPackage ./base.nix {
-              pname = "aporetic-sans";
+        { pkgs, lib, ... }:
+        let
+          version = "1.1.0";
+          fonts = [
+            "aporetic-sans"
+            "aporetic-sans-mono"
+          ];
+
+          mkPackage = pname: {
+            "${pname}" = pkgs.callPackage ./base.nix {
+              inherit pname version;
               upstream = iosevka-upstream;
             };
+          };
 
-            aporetic-sans-prebuilt = pkgs.callPackage ./prebuilt.nix {
-              pname = "aporetic-sans-prebuilt";
-              version = aporetic-sans.version;
+          mkPrebuiltPackage = pname: {
+            "${pname}-prebuilt" = pkgs.callPackage ./prebuilt.nix {
+              inherit pname version;
               mkDerivation = pkgs.stdenv.mkDerivation;
             };
-
-            default = aporetic-sans;
           };
+
+          packages = lib.mkMerge (builtins.map mkPackage fonts);
+          prebuiltPackages = lib.mkMerge (builtins.map mkPrebuiltPackage fonts);
+
+          finalPackages = lib.mkMerge [
+            packages
+            prebuiltPackages
+            # FIXME:
+            # {
+            #   all = pkgs.symlinkJoin {
+            #     name = "all";
+            #     paths = lib.attrValues packages;
+            #   };
+            # }
+          ];
+        in
+        {
+          packages = finalPackages;
         };
     };
 }

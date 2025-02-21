@@ -4,11 +4,11 @@
   remarshal,
   ttfautohint-nox,
   upstream,
+  version,
 }:
 buildNpmPackage rec {
-  inherit pname;
-  name = pname;
-  version = "1.1.0";
+  inherit pname version;
+  name = "${pname}-v${version}";
   src = upstream;
 
   npmDepsHash = "sha256-HeqwpZyHLHdMhd/UfXVBonMu+PhStrLCxAMuP/KuTT8=";

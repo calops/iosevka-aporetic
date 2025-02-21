@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 set -eux
 
-nix build .#aporetic-sans -L
+nix build .#aporetic-sans .#aporetic-sans-mono -L
 
 DIST="$(realpath "${1:-$PWD/dist}")"
 mkdir -p "$DIST"
