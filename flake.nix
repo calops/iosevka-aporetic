@@ -1,31 +1,44 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
-  };
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    systems.url = "systems";
 
-  outputs = {
-    self,
-    nixpkgs,
-  }: let
-    system = "x86_64-linux";
-    inherit (nixpkgs) lib;
-  in {
-    overlays.default = final: prev: let
-      buildPlan = builtins.fromTOML (builtins.readFile ./private-build-plans.toml);
-      pname = builtins.head (builtins.attrNames buildPlan.buildPlans);
-    in {
-      ${pname} = lib.makeScope final.newScope (self: {
-        base = self.callPackage ./base.nix {inherit pname;};
-
-        # ready for linux use, though IFD
-        ttf = final.runCommand "${pname}-ttf" {} ''
-          dest=$out/share/fonts/truetype
-          mkdir -p $dest
-          cp -avL ${self.base}/TTF/*.ttf $dest
-        '';
-      });
+    iosevka-upstream = {
+      url = "github:be5invis/Iosevka";
+      flake = false;
     };
-
-    legacyPackages.${system} = nixpkgs.legacyPackages.${system}.extend self.overlays.default;
   };
+
+  outputs =
+    inputs@{
+      iosevka-upstream,
+      flake-parts,
+      systems,
+      ...
+    }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = import systems;
+      perSystem =
+        { pkgs, ... }:
+        {
+          packages = rec {
+            aporetic-sans = rec {
+              base = pkgs.callPackage ./base.nix {
+                pname = "aporetic-sans";
+                upstream = iosevka-upstream;
+              };
+
+              # ready for linux use, though IFD
+              default = pkgs.runCommand "aporetic-sans-ttf" { } ''
+                dest=$out/share/fonts/truetype
+                mkdir -p $dest
+                cp -avL ${base}/TTF/*.ttf $dest
+              '';
+            };
+
+            default = aporetic-sans.base;
+          };
+        };
+    };
 }

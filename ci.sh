@@ -3,7 +3,7 @@ set -eux
 
 export NIX_CONFIG="allow-import-from-derivation = true"
 
-nix build .#iosevka-normal.base -L
+nix build .#aporetic-sans.base -L
 
 DIST="$(realpath "${1:-$PWD/dist}")"
 mkdir -p "$DIST"
@@ -14,5 +14,5 @@ mkdir -p "$DIST"
 # popd
 
 pushd ./result
-zip -9 -r "$DIST/iosevka.zip" ./.
+zip -9 -r "$DIST/aporetic-sans.zip" ./.
 popd
