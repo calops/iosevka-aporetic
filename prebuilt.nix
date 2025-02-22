@@ -12,7 +12,7 @@ mkDerivation {
   src = fetchurl {
     # FIXME:
     url = "https://github.com/calops/iosevka-aporetic/releases/download/v${version}/aporetic-sans.zip";
-    hash = "sha256-y0Cfc8yUrOYTXRJttJhIh/CA9wPx9FK/QjT5YYuPd+k=";
+    hash = "sha256-gaNbLmuO0sIs54bwnI6Jp9BeV5/S/IJvSAJCm2ruKIY=";
   };
 
   nativeBuildInputs = [ unzip ];
