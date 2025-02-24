@@ -28,21 +28,23 @@
             "aporetic-sans-mono"
           ];
 
-          mkPackage = pname: {
-            "${pname}" = pkgs.callPackage ./base.nix {
-              inherit pname version;
-              upstream = iosevka-upstream;
-            };
-          };
+          mkPackage =
+            pname:
+            builtins.nameValuePair pname (
+              pkgs.callPackage ./base.nix {
+                inherit pname version;
+                upstream = iosevka-upstream;
+              }
+            );
 
-          mkPrebuiltPackage = pname: {
-            "${pname}-prebuilt" = pkgs.callPackage ./prebuilt.nix {
+          mkPrebuiltPackage =
+            pname:
+            builtins.nameValuePair "${pname}-prebuilt" pkgs.callPackage ./prebuilt.nix {
               inherit pname version;
               mkDerivation = pkgs.stdenv.mkDerivation;
             };
-          };
 
-          packages = lib.mkMerge (builtins.map mkPackage fonts);
+          packages = builtins.lsitToAttrs (builtins.map mkPackage fonts);
           prebuiltPackages = lib.mkMerge (builtins.map mkPrebuiltPackage fonts);
 
           finalPackages = lib.mkMerge [
