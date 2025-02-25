@@ -30,7 +30,7 @@
 
           mkPackage =
             pname:
-            builtins.nameValuePair pname (
+            lib.nameValuePair pname (
               pkgs.callPackage ./base.nix {
                 inherit pname version;
                 upstream = iosevka-upstream;
@@ -39,10 +39,12 @@
 
           mkPrebuiltPackage =
             pname:
-            builtins.nameValuePair "${pname}-prebuilt" pkgs.callPackage ./prebuilt.nix {
-              inherit pname version;
-              mkDerivation = pkgs.stdenv.mkDerivation;
-            };
+            lib.nameValuePair "${pname}-prebuilt" (
+              pkgs.callPackage ./prebuilt.nix {
+                inherit pname version;
+                mkDerivation = pkgs.stdenv.mkDerivation;
+              }
+            );
 
           packages = builtins.listToAttrs (builtins.map mkPackage fonts);
           prebuiltPackages = builtins.listToAttrs (builtins.map mkPrebuiltPackage fonts);
