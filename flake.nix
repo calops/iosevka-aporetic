@@ -44,8 +44,8 @@
               mkDerivation = pkgs.stdenv.mkDerivation;
             };
 
-          packages = builtins.lsitToAttrs (builtins.map mkPackage fonts);
-          prebuiltPackages = lib.mkMerge (builtins.map mkPrebuiltPackage fonts);
+          packages = builtins.listToAttrs (builtins.map mkPackage fonts);
+          prebuiltPackages = builtins.listToAttrs (builtins.map mkPrebuiltPackage fonts);
 
           finalPackages = lib.mkMerge [
             packages
