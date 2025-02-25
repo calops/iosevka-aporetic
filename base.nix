@@ -8,7 +8,7 @@
 }:
 buildNpmPackage rec {
   inherit pname version;
-  name = "${pname}-v${version}";
+  name = "${pname}-${version}";
   src = upstream;
 
   npmDepsHash = "sha256-HeqwpZyHLHdMhd/UfXVBonMu+PhStrLCxAMuP/KuTT8=";

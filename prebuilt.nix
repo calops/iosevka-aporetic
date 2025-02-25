@@ -10,7 +10,7 @@ let
 in
 mkDerivation {
   inherit pname version;
-  name = "${pname}-prebuilt-v${version}";
+  name = "${pname}-prebuilt-${version}";
 
   src = fetchurl {
     url = "https://github.com/calops/iosevka-aporetic/releases/download/v${version}/${pname}.zip";

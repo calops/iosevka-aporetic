@@ -15,8 +15,8 @@ mkdir -p "$DIST"
 # popd
 
 while read -r output; do
-	pname=$(echo "$output" | sed -E 's#.*/(.*?)-[0-9].*#\1#')
+	pname=$(echo "$output" | sed -E 's#.*/[^-]*-(.*)-.*#\1#')
 	pushd "$output"
-	zip -9 -r "$DIST/$(basename "$pname").zip" ./.
+	zip -9 -r "$DIST/${pname}.zip" ./.
 	popd
 done <<<"$outputs"
