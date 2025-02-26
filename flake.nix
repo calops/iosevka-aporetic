@@ -52,13 +52,16 @@
           finalPackages = lib.mkMerge [
             packages
             prebuiltPackages
-            # FIXME:
-            # {
-            #   all = pkgs.symlinkJoin {
-            #     name = "all";
-            #     paths = lib.attrValues packages;
-            #   };
-            # }
+            {
+              all = pkgs.symlinkJoin {
+                name = "aporetic-all";
+                paths = lib.attrValues packages;
+              };
+              all-prebuilt = pkgs.symlinkJoin {
+                name = "aporetic-all-prebuilt";
+                paths = lib.attrValues prebuiltPackages;
+              };
+            }
           ];
         in
         {
