@@ -22,7 +22,7 @@
       perSystem =
         { pkgs, lib, ... }:
         let
-          version = "1.1.0";
+          version = "1.1.1";
           fonts = [
             "aporetic-sans"
             "aporetic-sans-mono"

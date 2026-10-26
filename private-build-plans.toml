@@ -7,6 +7,10 @@ spacing = "normal"               # Optional; Values: `normal`, `quasi-proportion
 serifs = "sans"                  # Optional; Values: `sans` or `slab`
 exportGlyphNames = true          # Set this to true for ligature support in Kitty (increased file size)
 
+# Let emoji fonts render regional-indicator flag sequences.
+[buildPlans.aporetic-sans-mono.excludeChars]
+ranges = [[0x1F1E6, 0x1F1FF]]
+
 [buildPlans.aporetic-sans-mono.variants.design]
 cv03 = 3    # 3 with double arc
 cv05 = 5    # 5 with arched middle part and no serifs
@@ -176,6 +180,10 @@ spacing = "quasi-proportional"
 serifs = "sans"
 exportGlyphNames = true
 
+# Let emoji fonts render regional-indicator flag sequences.
+[buildPlans.aporetic-sans.excludeChars]
+ranges = [[0x1F1E6, 0x1F1FF]]
+
 [buildPlans.aporetic-sans.variants]
 inherits = "buildPlans.aporetic-sans-mono"
 
@@ -231,6 +239,10 @@ family = "Aporetic Serif Mono"
 spacing = "normal"
 serifs = "slab"
 exportGlyphNames = true
+
+# Let emoji fonts render regional-indicator flag sequences.
+[buildPlans.aporetic-serif-mono.excludeChars]
+ranges = [[0x1F1E6, 0x1F1FF]]
 
 [buildPlans.aporetic-serif-mono.variants]
 inherits = "buildPlans.aporetic-sans-mono"
@@ -313,6 +325,10 @@ family = "Aporetic Serif"
 spacing = "quasi-proportional"
 serifs = "slab"
 exportGlyphNames = true
+
+# Let emoji fonts render regional-indicator flag sequences.
+[buildPlans.aporetic-serif.excludeChars]
+ranges = [[0x1F1E6, 0x1F1FF]]
 
 [buildPlans.aporetic-serif.variants]
 inherits = "buildPlans.aporetic-serif-mono"
