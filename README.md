@@ -15,6 +15,9 @@ Nerd fonts are not patched into the font. It is kind of a hack, and all terminal
 
 Download symbols separately: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/NerdFontsSymbolsOnly
 
+Regional indicator characters (U+1F1E6–U+1F1FF) are intentionally excluded so applications can fall back to an emoji
+font for country flags instead of rendering separate boxed letters. Install an emoji font such as Noto Color Emoji.
+
 ## Forking
 
 It should be easy to fork this repo to use your [custom build plan](./private-build-plans.toml).
